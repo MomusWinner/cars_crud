@@ -87,4 +87,4 @@ values
 
 -- migrate:down
 
-drop table if exists car_api_data.car, car_api_data.firm, car_api_data.feedback, car_api_data.car_firm cascade ;
+drop table if exists car_api_data.car, car_api_data.firm, car_api_data.feedback, car_api_data.car_firm cascade;

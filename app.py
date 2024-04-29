@@ -11,8 +11,7 @@ load_dotenv(override=True)
 
 app = Flask(__name__)
 app.json.ensure_ascii = False
-user = os.environ.get("POSTGRES_PASSWORD")
-print(user)
+
 connection = psycopg2.connect(
     user=os.environ.get("POSTGRES_USER"),
     password=os.environ.get("POSTGRES_PASSWORD"),

@@ -18,7 +18,8 @@ create table car_api_data.firm(
     id uuid primary key default uuid_generate_v4(),
     name text,
     phone text,
-    address text
+    address text,
+    foundation_year int
 );
 
 create table car_api_data.car_firm(
@@ -47,12 +48,12 @@ values
     ('Volkswagen', 'Volkswagen Polo', '1.6 MT', 1.6, 'передний', 'кремовый', 400400),
     ('Lada', 'Lada (ВАЗ) 2101', '1.2 MT', 1.2, 'задний', 'белый', 100400400);
     
-insert into car_api_data.firm(name, phone, address)
+insert into car_api_data.firm(name, phone, address, foundation_year)
 values
-    ('Лучший прокат', '+79649711288', 'ул. Космонавтов д.7'),
-    ('Ru Прокат', '+79649800288', 'ул. Тополиная д.1'),
-    ('Хоть что-то', '+79649001288', 'ул. Ленина д.60'),
-    ('Понт', '+79649001288', 'ул. Московская д.3');
+    ('Лучший прокат', '+79649711288', 'ул. Космонавтов д.7', 2000),
+    ('Ru Прокат', '+79649800288', 'ул. Тополиная д.1', 1930),
+    ('Хоть что-то', '+79649001288', 'ул. Ленина д.60', 1909),
+    ('Понт', '+79649001288', 'ул. Московская д.3',2012);
 
 insert into car_api_data.car_firm
 values

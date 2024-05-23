@@ -29,24 +29,28 @@ select
     f.name,
     f.phone,
     f.address,
+    f.foundation_year,
     ff.feedback,
     fc.car
 from car_api_data.firm f
 left join firm_feetback ff on ff.id = f.id
 left join firm_cars fc on fc.id = f.id
+{where}
 group by f.id, ff.feedback, fc.car;
 """
 
 INSERT_FIRM = """
-    insert into car_api_data.firm(name, phone, address)
-    values ({name}, {phone}, {address})
+    insert into car_api_data.firm(name, phone, address, foundation_year)
+    values ({name}, {phone}, {address}, {foundation_year})
     returning id;
 """
 
 UPDATE_FIRM = """
-    update car_api_data.firm set name = {name}, 
+    update car_api_data.firm set
+    name = {name}, 
     phone = {phone},
-    address = {address} 
+    address = {address},
+    foundation_year = {foundation_year}
     where id = {id} 
     returning id;
 """

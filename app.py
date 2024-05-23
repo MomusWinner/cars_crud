@@ -30,8 +30,10 @@ def hello_world():
 
 @app.get("/firms")
 def get_firms():
+    query_ =query.GET_FIRMS.format(
+        where=None)
     with connection.cursor() as cursor:
-        cursor.execute(query.GET_FIRMS)
+        cursor.execute(query_)
         result = cursor.fetchall()
 
     return result
@@ -43,7 +45,13 @@ def create_actor():
     name = body['name']
     phone = body['phone']
     address = body['address']
-    query_ = SQL(query.INSERT_FIRM).format(name=Literal(name), phone=Literal(phone), address=Literal(address))
+    foundation_year = body['foundation_year']
+
+    query_ = SQL(query.INSERT_FIRM).format(
+        name=Literal(name),
+        phone=Literal(phone), 
+        address=Literal(address),
+        foundation_year=Literal(foundation_year))
     with connection.cursor() as cursor:
         cursor.execute(query_)
         result = cursor.fetchone()
@@ -57,9 +65,10 @@ def update_actor():
     name = body['name']
     phone = body['phone']
     address = body['address']
+    foundation_year = body['foundation_year']
     id = body["id"]
 
-    query_ = SQL(query.UPDATE_FIRM).format(name=Literal(name), phone=Literal(phone), address=Literal(address), id=Literal(id))
+    query_ = SQL(query.UPDATE_FIRM).format(name=Literal(name), phone=Literal(phone), address=Literal(address), id=Literal(id), foundation_year=Literal(foundation_year))
     with connection.cursor() as cursor:
         cursor.execute(query_)
         result = cursor.fetchone()
@@ -84,3 +93,30 @@ def delete_actor():
         return '', 404
 
     return ''
+
+
+@app.get('/firm/find_by_name')
+def get_firm_by_name():
+    name = request.args.get('name')
+    query_ =query.GET_FIRMS.format(
+        where=f"where f.name ilike '%{name}%'")
+    print(query_)
+    with connection.cursor() as cursor:
+        cursor.execute(query_)
+        result = cursor.fetchall()
+
+    return result
+
+
+@app.get('/firm/find_by_foundation_year')
+def get_firm_by_foundation_year():
+    foundation_year = request.args.get('foundation_year')
+    query_ =query.GET_FIRMS.format(
+        where=f"where f.foundation_year = {foundation_year}")
+    print(query_)
+    with connection.cursor() as cursor:
+        cursor.execute(query_)
+        result = cursor.fetchall()
+
+    return result
+

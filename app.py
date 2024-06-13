@@ -31,7 +31,7 @@ def hello_world():
 @app.get("/firms")
 def get_firms():
     query_ =query.GET_FIRMS.format(
-        where=None)
+        where="")
     with connection.cursor() as cursor:
         cursor.execute(query_)
         result = cursor.fetchall()
@@ -98,7 +98,7 @@ def delete_actor():
 @app.get('/firm/find_by_name')
 def get_firm_by_name():
     name = request.args.get('name')
-    query_ =query.GET_FIRMS.format(
+    query_ = query.GET_FIRMS.format(
         where=f"where f.name ilike '%{name}%'")
     print(query_)
     with connection.cursor() as cursor:
@@ -111,7 +111,7 @@ def get_firm_by_name():
 @app.get('/firm/find_by_foundation_year')
 def get_firm_by_foundation_year():
     foundation_year = request.args.get('foundation_year')
-    query_ =query.GET_FIRMS.format(
+    query_ = query.GET_FIRMS.format(
         where=f"where f.foundation_year = {foundation_year}")
     print(query_)
     with connection.cursor() as cursor:
